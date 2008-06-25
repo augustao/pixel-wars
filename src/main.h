@@ -31,7 +31,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-
 #pragma comment(lib, "SDL.lib")
 #pragma comment(lib, "SDLmain.lib")
 #pragma comment(lib, "SDL_image.lib")
@@ -47,8 +46,6 @@
 #include <sstream>
 
 using namespace std;
-
-
 
 struct StateStruct 
 {

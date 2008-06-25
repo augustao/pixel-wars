@@ -14,45 +14,26 @@ using namespace std;
 
 string mem_manager_class::SurfTypeToPath(string type)
 {
-	if(type == "tile")
-	{
+	if(type == "tile") {
 		return "data/graphics/tiles/";
-	}
-	else if(type == "bg")
-	{
+	} else if(type == "bg") {
 		return "data/graphics/bg/";
-	}
-	else if(type == "effect")
-	{
-		return "data/graphics/effects/";
-	}
-	else if(type == "item")
-	{
+	} else if(type == "effect") {
+		return "data/graphics/effects/"; 
+	} else if(type == "item") {
 		return "data/graphics/items/";
-	}
-	else if(type == "misc")
-	{
+	} else if(type == "misc") {
 		return "data/graphics/misc/";
-	}
-	else if(type == "missile")
-	{
+	} else if(type == "missile") {
 		return "data/graphic/missiles/";
-	}
-	else if(type == "animation")
-	{
+	} else if(type == "animation") {
 		return "data/graphics/animations/";
-	}
-	else if(type == "movie")
-	{
+	} else if(type == "movie") {
 		return "data/movies/";
-	}
-	else if(type == "default")
-	{
+	} else if(type == "default") {
 		return "data/graphics/";
 	}
-
 	return "data/graphics/test/";
-	
 }
 
 string mem_manager_class::GetLastMusicName()
@@ -67,63 +48,57 @@ void mem_manager_class::Init()
 
 void mem_manager_class::Flush()
 {
-	if(DEBUG_MSG) cout << "Clearing memory...\n";
-
+	if (DEBUG_MSG) {
+		cout << "Clearing memory...\n";
+	}
 	surfaces.clear();
 	chunks.clear();
 	musics.clear();
-
 }
 
 SDL_Surface* mem_manager_class::GetSurf(string s_name,string type)
 {
 	surfsITR = surfaces.find(s_name);
 		
-	if(surfsITR == surfaces.end())
-	{
-		if(DEBUG_MSG) cout << "Surface not precached,loading...\n";
+	if (surfsITR == surfaces.end()) {
+		if (DEBUG_MSG) {
+			cout << "Surface not precached,loading...\n";
+		}
 		LoadSurf(s_name,type);
 		surfsITR = surfaces.find(s_name);
-		if(surfsITR == surfaces.end())
-		{
+		if (surfsITR == surfaces.end()) {
 			cerr << "Loading failed!!! Surface: " << s_name << " - " << type << "\n\n";
 			exit(1);
 		}
-	}
-
-	else if(surfsITR->second == NULL) 
-	{
+	} else if (surfsITR->second == NULL) {
 		cerr << "ERROR: Null surface!\n";
 		cerr << surfaces.count(s_name);
 		exit(1);
 	}
-
 	return surfsITR->second;
 }
 
 void mem_manager_class::LoadSurf(string name,string type)
 {
 	LoadSurf(name,type,255,0,255);
-	
 };
 
 
 Mix_Chunk* mem_manager_class::GetSFX(string name)
 {
 	chunksITR = chunks.find(name);
-		
-	if(chunksITR == chunks.end())
-	{
-		if(DEBUG_MSG) cout << "Chunk not precached,loading...\n";
+
+	if (chunksITR == chunks.end()) {
+		if (DEBUG_MSG) {
+			cout << "Chunk not precached,loading...\n";
+		}
 		LoadSFX(name);
 		chunksITR = chunks.find(name);
-		if(chunksITR == chunks.end())
-		{
+		if (chunksITR == chunks.end()) {
 			cerr << "Loading failed!!! SFX: " << name << "\n\n";
 			exit(1);
 		}
 	}
-
 	return chunksITR->second;
 }
 
@@ -133,25 +108,21 @@ Mix_Music* mem_manager_class::GetMusic(string name)
 
 	lastmusic = name;
 		
-	if(musicsITR == musics.end())
-	{
-		if(DEBUG_MSG) cout << "Music not precached,loading...\n";
+	if (musicsITR == musics.end()) {
+		if (DEBUG_MSG) {
+			cout << "Music not precached,loading...\n";
+		}
 		LoadMusic(name,false);
 		musicsITR = musics.find(name);
-		if(musicsITR == musics.end())
-		{
-			
+		if (musicsITR == musics.end()) {
 			LoadMusic(name,true);
 			musicsITR = musics.find(name);
-			if(musicsITR == musics.end())
-			{
+			if (musicsITR == musics.end()) {
 				cerr << "Loading failed!!! Music: " << name << "\n\n";
 				exit(1);
 			}
 		}
-		
 	}
-
 	return musicsITR->second;
 }
 
@@ -161,37 +132,36 @@ void mem_manager_class::LoadSFX(string name)
 	path += name + ".ogg";
 	
 	Mix_Chunk *newchunk = Mix_LoadWAV(path.c_str());
-	if(newchunk == NULL) 
-	{
+	if (newchunk == NULL) {
 		path = "data/sfx/";
 		path += name + ".wav";
 		newchunk = Mix_LoadWAV(path.c_str());
-		if(newchunk == NULL) 
-		{
+		if (newchunk == NULL) {
 			cerr << "Error loading sfx: " << path << "\n\n";
 			return;
 		}
 	}
 	chunks.insert(pair<string,Mix_Chunk*>(name,newchunk));
-	
 }
 
 void mem_manager_class::LoadMusic(string name,bool is_ogg)
 {
 	string path = "data/music/" + name;
-	if(is_ogg)path += ".ogg";
-	else path += ".mid";
+	if (is_ogg) {
+		path += ".ogg";
+	} else {
+		path += ".mid";
+	}
 
 	Mix_Music *newmusic = Mix_LoadMUS(path.c_str());
-	if(newmusic == NULL) 
-	{
-		if(DEBUG_MSG) cerr << "Error loading music: " << path << "\n\n";
+	if (newmusic == NULL) {
+		if(DEBUG_MSG) {
+			cerr << "Error loading music: " << path << "\n\n";
+		}
 		return;
 	}
 	musics.insert(pair<string,Mix_Music*>(name,newmusic));
-
 }
-
 
 void mem_manager_class::LoadSurf(string name,string type,int cR,int cG,int cB)
 {
@@ -204,20 +174,17 @@ void mem_manager_class::LoadSurf(string name,string type,int cR,int cG,int cB)
 	
 	temp2 = IMG_Load(path.c_str());
 	
-	if(temp2 == NULL) 
-	{
+	if (temp2 == NULL) {
 		string path = SurfTypeToPath(type);
 		path += name + ".png";
 		temp2 = IMG_Load(path.c_str());
-		if(temp2 == NULL) 
-		{
+		if (temp2 == NULL) {
 			cerr << "CRITICAL ERROR: Failed to open \"" << path<< "\" !!! \n";
 			cerr << "REASON: " << IMG_GetError() << endl;
 		
 			system("pause");
 
 			exit(1);
-
 		}
 	}
 	SDL_SetColorKey(temp2, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(temp2->format, cR, cG, cB) );
@@ -227,25 +194,19 @@ void mem_manager_class::LoadSurf(string name,string type,int cR,int cG,int cB)
 	SDL_FreeSurface(temp2);
 	
 	surfaces.insert(pair<string,SDL_Surface*>(name,temp));
-
-	
 }
 
 void mem_manager_class::Shutdown()
 {
-	for(surfsITR = surfaces.begin();surfsITR != surfaces.end();surfsITR++)
-	{
+	for (surfsITR = surfaces.begin();surfsITR != surfaces.end();surfsITR++) {
 		SDL_FreeSurface(surfsITR->second);
 	}
 	
-	for(chunksITR = chunks.begin();chunksITR != chunks.end();chunksITR++)
-	{
+	for (chunksITR = chunks.begin();chunksITR != chunks.end();chunksITR++) {
 		Mix_FreeChunk(chunksITR->second);
 	}
 
-	for(musicsITR = musics.begin();musicsITR != musics.end();musicsITR++)
-	{
+	for (musicsITR = musics.begin();musicsITR != musics.end();musicsITR++) {
 		Mix_FreeMusic(musicsITR->second);
 	}
-
 }

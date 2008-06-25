@@ -9,7 +9,6 @@ class Timer
 private:
 	//The clock time when the timer started
 	int startTicks;
-
 	//The ticks stored when the timer was paused
 	int pausedTicks;
 

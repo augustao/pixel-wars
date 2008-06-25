@@ -45,8 +45,6 @@ public:
 	void LoadSurf(string name,string type);
 	void LoadSurf(string name,string type,int cR,int cG,int cB);
 	SDL_Surface* GetSurf(string s_name,string type);
-
-
 };
 
 #endif

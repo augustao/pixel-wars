@@ -17,8 +17,6 @@ public:
 	fontinfo(string fname,int fsize);
 };
 
-
-
 struct cachedtext
 {
 	SDL_Surface* surface;

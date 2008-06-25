@@ -80,7 +80,9 @@ void text_system_class::AddToCache(string textline,cachedtext &ctext)
 	size_t used_cache_size = cachedtexts.size();
 
 	// Finishes functions if there is still free cache space
-	if(used_cache_size < cachesize)		return;
+	if (used_cache_size < cachesize) {
+		return;
+	}
 
 	// Cache is full, erases oldest entry to acquire free space
 	ctextsITR = cachedtexts.find(cache_queue.front());
@@ -107,7 +109,6 @@ void text_system_class::SetCurrentFont(string name,int size)
 			return;
 		}
 	}
-
 
 	// The requested font has not been loaded yet
 	cout << "Requested font not in memory, loading...\n";
@@ -150,7 +151,7 @@ void text_system_class::DrawQueuedTexts()
 {
 	queuedtext *p;
 
-	while(!text_queue.empty()) {
+	while (!text_queue.empty()) {
 		p = &text_queue.front();
 		DrawText(p->text,p->size,p->X,p->Y,p->fR,p->fG,p->fB,p->bR,p->bG,p->bB,255);
 		text_queue.pop();
@@ -177,12 +178,12 @@ void text_system_class::DrawText(const char* text,int size,int X,int Y,int fR,in
 
 	size_t keys_amount = cachedtexts.count(textstr);
 
-	if(keys_amount == 1) {
+	if (keys_amount == 1) {
 		ctextsITR = cachedtexts.find(textstr);
 		ct = ctextsITR->second;
-		if(ct.fontname == Default_Font) {
-			if( ct.size == size) {
-				if(compareSDL_Color(fgcolor,ct.fG) && compareSDL_Color(bgcolor,ct.bG )) {
+		if (ct.fontname == Default_Font) {
+			if (ct.size == size) {
+				if(compareSDL_Color(fgcolor,ct.fG) && compareSDL_Color(bgcolor,ct.bG)) {
 					// Found in cache...
 					SDL_Rect textloc = { X, Y, ct.surface->w , ct.surface->h }; 
 
@@ -192,14 +193,14 @@ void text_system_class::DrawText(const char* text,int size,int X,int Y,int fR,in
 				}
 			}
 		}
-	} else if(keys_amount > 1) {
+	} else if (keys_amount > 1) {
 		pair<multimap<string,cachedtext>::iterator,multimap<string,cachedtext>::iterator> range_pair;
 		range_pair = cachedtexts.equal_range(textstr);
-		for(ctextsITR = range_pair.first;ctextsITR != range_pair.second;ctextsITR++) {
+		for (ctextsITR = range_pair.first;ctextsITR != range_pair.second;ctextsITR++) {
 			ct = ctextsITR->second;
-			if(ct.fontname == Default_Font) {
-				if( ct.size == size) {
-					if(compareSDL_Color(fgcolor,ct.fG) && compareSDL_Color(bgcolor,ct.bG )) {
+			if (ct.fontname == Default_Font) {
+				if (ct.size == size) {
+					if (compareSDL_Color(fgcolor,ct.fG) && compareSDL_Color(bgcolor,ct.bG)) {
 						// Found in cache...
 						SDL_Rect textloc = { X, Y, ct.surface->w , ct.surface->h }; 
 						SDL_BlitSurface(ct.surface, NULL, screen, &textloc);
@@ -215,13 +216,13 @@ void text_system_class::DrawText(const char* text,int size,int X,int Y,int fR,in
 
 	SDL_Surface* textSurface2 = TTF_RenderText_Shaded(currentfont->font, text,fgcolor,bgcolor);
 
-	if(fR == 0 && fG == 0 && fB == 0) {
-		SDL_SetColorKey(textSurface2, SDL_SRCCOLORKEY, SDL_MapRGB(textSurface2->format, 255, 255, 255) );
+	if (fR == 0 && fG == 0 && fB == 0) {
+		SDL_SetColorKey(textSurface2, SDL_SRCCOLORKEY, SDL_MapRGB(textSurface2->format, 255, 255, 255));
 	} else {
-		SDL_SetColorKey(textSurface2, SDL_SRCCOLORKEY, SDL_MapRGB(textSurface2->format, 0, 0, 0) );
+		SDL_SetColorKey(textSurface2, SDL_SRCCOLORKEY, SDL_MapRGB(textSurface2->format, 0, 0, 0));
 	}
 
-	if(alpha < 255) {
+	if (alpha < 255) {
 		SDL_SetAlpha(textSurface2,SDL_SRCALPHA,(Uint8) alpha);
 	}
 
