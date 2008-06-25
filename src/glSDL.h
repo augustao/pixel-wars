@@ -21,7 +21,7 @@
 */
 
 /* We're still using SDL datatypes here - we just add some stuff. */
-#include "SDL.h"
+#include <SDL/SDL.h>
 
 #define CIRCLE_QUALITY 1
 
@@ -43,7 +43,7 @@
 
 #else	/* HAVE_OPENGL */
 
-#include "begin_code.h"
+#include <SDL/begin_code.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -336,7 +336,7 @@ void GSLine( float X1,float Y1,float X2,float Y2, float red, float green, float 
 #ifdef __cplusplus
 }
 #endif
-#include "close_code.h"
+#include <SDL/close_code.h>
 
 /* Some ugly "overriding"... */
 #ifndef	_GLSDL_NO_REDEFINES_
@@ -381,7 +381,7 @@ void GSLine( float X1,float Y1,float X2,float Y2, float red, float green, float 
 #endif
 
 /* Some extra overloading for common external lib calls... */
-#include "SDL_image.h"
+#include <SDL/SDL_image.h>
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -1,5 +1,5 @@
-#ifndef MAIN_H_34837243279342
-#define MAIN_H_34837243279342
+#ifndef H_MAIN
+#define H_MAIN
 
 #include <iostream>
 #include <string>
@@ -12,14 +12,22 @@
 
 #include <stack>
 
+#ifdef WIN32
 #include "SDL.h"
 #include "SDL_TTF.h"
 #include "SDL_image.h"
 #include "SDL_gfxPrimitives.h"
 #include "SDL_mixer.h"
-#include "glSDL.h"
-
 #include "windows.h"
+#else
+#include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_gfxPrimitives.h>
+#include <SDL/SDL_mixer.h>
+#endif
+
+#include "glSDL.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -43,12 +51,10 @@ using namespace std;
 
 
 struct StateStruct 
- {
-   void (*StatePointer)();
+{
+	void (*StatePointer)();
 };
 
 string IntToString(int num);
 
-
-
-#endif // MAIN_H_34837243279342
+#endif // H_MAIN

@@ -26,8 +26,6 @@ void Shutdown_Audio()
 	Mix_CloseAudio();
 }
 
-
-
 void ChannelEnded(int ch)
 {
 	
