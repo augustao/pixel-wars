@@ -12,24 +12,13 @@
 
 #include <stack>
 
-#ifdef WIN32
 #include "SDL.h"
-#include "SDL_TTF.h"
+#include "SDL_ttf.h"
 #include "SDL_image.h"
 #include "SDL_gfxPrimitives.h"
 #include "SDL_mixer.h"
+#ifdef WIN32
 #include "windows.h"
-#else
-#include <SDL/SDL.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_gfxPrimitives.h>
-#include <SDL/SDL_mixer.h>
-#endif
-
-#include "glSDL.h"
-#include <GL/gl.h>
-#include <GL/glu.h>
 
 #pragma comment(lib, "SDL.lib")
 #pragma comment(lib, "SDLmain.lib")
@@ -38,6 +27,11 @@
 #pragma comment(lib, "SDL_TTF.lib")
 #pragma comment(lib, "SDL_mixer.lib")
 #pragma comment(lib, "opengl32.lib")
+#endif
+
+#include "glSDL.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 #include <vector>
 #include <map>
