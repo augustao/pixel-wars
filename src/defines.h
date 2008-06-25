@@ -1,5 +1,5 @@
-#ifndef DEF_38493893
-#define DEF_38493893
+#ifndef H_DEFINES
+#define H_DEFINES
 
 // Window related defines 
 #define WINDOW_WIDTH   800

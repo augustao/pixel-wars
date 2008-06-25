@@ -3,7 +3,6 @@ using namespace std;
 
 #define AUDIO_CHANNELS 64
 
-
 // Audio Vars
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16; /* 16-bit stereo */
@@ -18,7 +17,6 @@ void Init_Audio()
 	Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers);
 	Mix_AllocateChannels(AUDIO_CHANNELS);
 	Mix_ChannelFinished(ChannelEnded);
-	
 }
 
 void Shutdown_Audio()

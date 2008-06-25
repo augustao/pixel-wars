@@ -1,5 +1,5 @@
-#ifndef AUDIO_832729883928
-#define AUDIO_832729883928
+#ifndef H_AUDIO
+#define H_AUDIO
 
 #include "main.h"
 

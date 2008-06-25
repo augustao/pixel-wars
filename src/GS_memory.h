@@ -1,11 +1,11 @@
 /* 
 
-GLSDL/SDL MEMORY MANAGER
-WRITTEN BY ALPHA NOX
+   GLSDL/SDL MEMORY MANAGER
+   WRITTEN BY ALPHA NOX
 
 */
-#ifndef GSNOX_28321829893
-#define GSNOX_28321829893
+#ifndef H_GS_MEM
+#define H_GS_MEM
 
 #include "main.h"
 
@@ -30,9 +30,9 @@ public:
 	void Init();
 	void Shutdown();
 	void Flush();
-	
+
 	string SurfTypeToPath(string type);
-	
+
 	// Audio managers
 	void LoadSFX(string name);
 	void LoadMusic(string name,bool is_ogg);
@@ -46,7 +46,7 @@ public:
 	void LoadSurf(string name,string type,int cR,int cG,int cB);
 	SDL_Surface* GetSurf(string s_name,string type);
 
-	
+
 };
 
 #endif
