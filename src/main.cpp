@@ -110,7 +110,7 @@ void Game()
 		ClearScreen();
 		GameInput();
 		SDL_Flip(screen);
-		Sleep(10);
+		SDL_Delay(10);
 	}
 }
 
@@ -127,7 +127,7 @@ void Init()
 
 	// Initializes SDL
 	SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
-
+	
 	// Starts OPENGL window
 	if (FULL_SCREEN) {
 		screen = SDL_SetVideoMode(WINDOW_WIDTH,	WINDOW_HEIGHT, 0, SDL_ANYFORMAT | SDL_GLSDL | SDL_DOUBLEBUF | SDL_FULLSCREEN);
