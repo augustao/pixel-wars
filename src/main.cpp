@@ -27,6 +27,11 @@ using namespace std;
 // Global Variables
 bool FULL_SCREEN = false;
 
+// If a certain key is held or not
+bool keysHeld[323] = {false};
+// SDL_Event structure
+SDL_Event Event;
+
 // the screen surface
 SDL_Surface* screen;
 
@@ -42,15 +47,70 @@ void ClearScreen()
 	SDL_FillRect(screen, 0, 0);
 }
 
+
+void GameInput()
+{
+	// Fill our Event structure with Event information.
+    if ( SDL_PollEvent(&Event) )
+    {
+        // Handle user manually closing game window
+        if (Event.type == SDL_QUIT)
+        { 
+            // While state stack isn't empty, pop 
+            while (!StateStack.empty())
+            {
+                StateStack.pop();
+            }
+
+            return; // game is over, exit the function
+        }
+				
+		if (Event.type == SDL_KEYDOWN)
+        {
+            keysHeld[Event.key.keysym.sym] = true;
+			// For actions that are do not occur again if the key is still pressed, put inside this if
+			if (Event.key.keysym.sym == SDLK_LEFT)
+			{
+				
+				return;
+				
+			}
+								
+		 } 
+         if (Event.type == SDL_KEYUP)
+         {
+            keysHeld[Event.key.keysym.sym] = false;
+
+			
+         }
+
+		 if (Event.key.keysym.sym == SDLK_ESCAPE)
+         {
+				
+			StateStack.pop();
+            return; 
+            
+         } 
+	}
+ 		    
+	
+	if (keysHeld[SDLK_u])
+	{
+				
+		return;
+	}
+
+
+}
+
 void Game()
 {
-	ClearScreen();
-
 	if (fpss.get_ticks() >= 1000 / FRAMES_PER_SECOND) {
 		fpss.start();
 		ClearScreen();
+		GameInput();
 		SDL_Flip(screen);
-		SDL_Delay(10);
+		Sleep(10);
 	}
 }
 
@@ -133,8 +193,6 @@ void HandleCmdArguments(int argcc,char **argvv)
 // Main Function
 int main(int argc, char **argv)
 {
-	system("clear");
-
 	HandleCmdArguments(argc,argv);
 
 	cout << "Pixel Wars by Magic Pixels Entertainment!\n\n";
